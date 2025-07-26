@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import './App.css'
 import RecipeList from './components/RecipeList'
 import AddRecipeForm from './components/AddRecipeForm'
-
+import DeleteRecipeButton from './components/DeleteRecipeButton'
+import EditRecipeForm from './components/EditRecipeForm'
+import RecipeDetails from './components/RecipeDetails'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -16,6 +16,9 @@ function App() {
         <Route path="/" element={<h2>Welcome to the Recipe Sharing App</h2>} />
         <Route path="/recipes" element={<RecipeList />} />
         <Route path="/add-recipe" element={<AddRecipeForm />} />
+        <Route path="/edit-recipe/:recipeId" element={<EditRecipeForm />} />
+        <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
+        <Route path="/delete-recipe/:recipeId" element={<DeleteRecipeButton />} />
       </Routes>
     </div>
     </BrowserRouter>
