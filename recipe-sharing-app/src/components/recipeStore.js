@@ -1,28 +1,27 @@
-import { create } from 'zustand';
+// recipeStore.js (Zustand store update)
+import create from 'zustand';
 
 const useRecipeStore = create((set) => ({
   recipes: [],
-  searchTerm: '',
-  filteredRecipes: [],
-  
-  setSearchTerm: (term) => {
+  favorites: [],
+  recommendations: [],
+
+  addFavorite: (recipeId) =>
+    set((state) => ({ favorites: [...state.favorites, recipeId] })),
+
+  removeFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: state.favorites.filter((id) => id !== recipeId),
+    })),
+
+  generateRecommendations: () =>
     set((state) => {
-      const filtered = state.recipes.filter(recipe =>
-        recipe.title.toLowerCase().includes(term.toLowerCase())
+      const recommended = state.recipes.filter(
+        (recipe) =>
+          state.favorites.includes(recipe.id) && Math.random() > 0.5
       );
-      return {
-        searchTerm: term,
-        filteredRecipes: filtered
-      };
-    });
-  },
-
-  addRecipe: (recipe) => set((state) => ({
-    recipes: [...state.recipes, recipe],
-    filteredRecipes: [...state.recipes, recipe].filter(r =>
-      r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-    )
-  })),
-
-  // Include update and delete if already added
+      return { recommendations: recommended };
+    }),
 }));
+
+export default useRecipeStore;

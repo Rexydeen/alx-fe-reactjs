@@ -6,6 +6,8 @@ import DeleteRecipeButton from './components/DeleteRecipeButton'
 import EditRecipeForm from './components/EditRecipeForm'
 import RecipeDetails from './components/RecipeDetails'
 import SearchBar from './components/SearchBar'
+import FavoritesList from './components/FavoritesList'
+import RecommendationsList from './components/RecommendationsList'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -22,6 +24,8 @@ function App() {
         <Route path="/delete-recipe/:recipeId" element={<DeleteRecipeButton />} />
         <Route path="/search" element={<SearchBar />} />
       </Routes>
+      <FavoritesList />
+      <RecommendationsList />
     </div>
     </BrowserRouter>
       
