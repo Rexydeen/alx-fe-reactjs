@@ -5,6 +5,7 @@ import AddRecipeForm from './components/AddRecipeForm'
 import DeleteRecipeButton from './components/DeleteRecipeButton'
 import EditRecipeForm from './components/EditRecipeForm'
 import RecipeDetails from './components/RecipeDetails'
+import SearchBar from './components/SearchBar'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/edit-recipe/:recipeId" element={<EditRecipeForm />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
         <Route path="/delete-recipe/:recipeId" element={<DeleteRecipeButton />} />
+        <Route path="/search" element={<SearchBar />} />
       </Routes>
     </div>
     </BrowserRouter>
