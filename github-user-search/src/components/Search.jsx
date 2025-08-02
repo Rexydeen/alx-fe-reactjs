@@ -20,31 +20,37 @@ const Search = () => {
       const userData = await fetchUserData(username.trim());
       setUser(userData);
     } catch (err) {
-      setError('Looks like we cant find the user');
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Search GitHub username..."
-      />
-      <button type="submit">Search</button>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter GitHub username"
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? 'Searching...' : 'Search'}
+        </button>
+      </form>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       {user && (
         <div>
-          <p>Username: {user.login}</p>
-          <p>Name: {user.name}</p>
-          {/* Add more user fields as needed */}
+          <h2>{user.name || user.login}</h2>
+          <p>{user.bio}</p>
+          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+            View Profile
+          </a>
         </div>
       )}
-    </form>
+    </div>
   );
 };
 
