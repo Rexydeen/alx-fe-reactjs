@@ -1,39 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import FindBar from './components/FindBar.jsx'
-import UserCard from './components/UserCard.jsx'
-import { fetchUser } from './services/github.js'
-import { fetchUserData } from './services/githubService.js'
+// src/App.jsx
+import React, { useState } from 'react';
+import FindBar from './components/FindBar';
+import UserCard from './components/UserCard';
+import { fetchUser } from './services/github';
+import { fetchUserData } from './services/github';
+import Search from './components/Search';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState('');
+
+  const handleSearch = async (username) => {
+    try {
+      const data = await fetchUser(username);
+      setUser(data);
+      setError('');
+    } catch (err) {
+      setUser(null);
+      setError('User not found or API error.');
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app-container">
+      <h1>GitHub User Search</h1>
+      <SearchBar onSearch={handleSearch} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <UserCard user={user} />
+      <Search />
+    </div>
+  );
+};
 
-export default App
+export default App;
