@@ -15,7 +15,15 @@ export const searchUsers = async (username, location, minRepos) => {
   if (location) query += `location:${location} `;
   if (minRepos) query += `repos:>=${minRepos}`;
 
-  const response = await github.get(`/search/users?q=${encodeURIComponent(query.trim())}`);
+  const fullUrl = `https://api.github.com/search/users?q=${encodeURIComponent(query.trim())}`;
+
+  const response = await axios.get(fullUrl, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`
+    }
+  });
+
   return response.data;
 };
+
 
