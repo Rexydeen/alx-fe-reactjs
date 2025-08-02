@@ -5,6 +5,7 @@ import './App.css'
 import FindBar from './components/FindBar.jsx'
 import UserCard from './components/UserCard.jsx'
 import { fetchUser } from './services/github.js'
+import { fetchUserData } from './services/githubService.js'
 
 function App() {
   const [count, setCount] = useState(0)
